@@ -8,14 +8,35 @@ import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './login/login.component';
+import { LoginServiceService } from './services/login/login-service.service';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'user-profile', component: ProfileComponent },
-  { path: 'register', component: SignupComponent },
-  { path: 'landing', component: LandingComponent },
-  { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [LoginServiceService],
+  },
+  {
+    path: 'user-profile',
+    component: ProfileComponent,
+    canActivate: [LoginServiceService],
+  },
+  {
+    path: 'register',
+    component: SignupComponent,
+    canActivate: [LoginServiceService],
+  },
+  {
+    path: 'landing',
+    component: LandingComponent,
+    canActivate: [LoginServiceService],
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [LoginServiceService],
+  },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
 
 @NgModule({
