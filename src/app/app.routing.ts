@@ -1,40 +1,40 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
-import { BrowserModule  } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
+import { AutoLoginGuard } from 'angular-auth-oidc-client';
 
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './login/login.component';
-import { LoginServiceService } from './services/login/login-service.service';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [LoginServiceService],
+    canActivate: [AutoLoginGuard],
   },
   {
     path: 'user-profile',
     component: ProfileComponent,
-    canActivate: [LoginServiceService],
+    canActivate: [AutoLoginGuard],
   },
   {
     path: 'register',
     component: SignupComponent,
-    canActivate: [LoginServiceService],
+    canActivate: [AutoLoginGuard],
   },
   {
     path: 'landing',
     component: LandingComponent,
-    canActivate: [LoginServiceService],
+    canActivate: [AutoLoginGuard],
   },
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [LoginServiceService],
+    canActivate: [AutoLoginGuard],
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
@@ -43,7 +43,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(routes,{
+    RouterModule.forRoot(routes, {
       useHash: true
     })
   ],

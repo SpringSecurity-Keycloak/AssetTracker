@@ -5,22 +5,13 @@
 export const environment = {
   production: false,
   authO: {
-    issuer: 'https://dev-r1e4o7ny.us.auth0.com/',
+    issuer: 'https://dev-r1e4o7ny.us.auth0.com',
     clientId: '9XLqEdiegPL55OISpeXd6u4M3bnPGbcy',
     redirectUri: window.location.origin,
     scope: 'openid profile email',
-    response_type: 'id_token token',
+    response_type: 'code',
     logoutUrl:
       'https://dev-r1e4o7ny.us.auth0.com/v2/logout?federated&returnTo=https://dchacko-simple-angular-ui.herokuapp.com',
     postLogoutRedirectUri: 'https://dchacko-simple-angular-ui.herokuapp.com',
   },
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
