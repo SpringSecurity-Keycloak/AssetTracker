@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-import { AutoLoginGuard } from 'angular-auth-oidc-client';
+
 
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -14,29 +14,29 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [AutoLoginGuard],
+    //canActivate: [AutoLoginGuard],
   },
   {
     path: 'user-profile',
     component: ProfileComponent,
-    canActivate: [AutoLoginGuard],
+    //canActivate: [AutoLoginGuard],
   },
   {
     path: 'register',
     component: SignupComponent,
-    canActivate: [AutoLoginGuard],
+    //canActivate: [AutoLoginGuard],
   },
   {
     path: 'landing',
     component: LandingComponent,
-    canActivate: [AutoLoginGuard],
+    //canActivate: [AutoLoginGuard],
   },
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [AutoLoginGuard],
+    //canActivate: [AutoLoginGuard],
   },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'landing', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -44,10 +44,9 @@ const routes: Routes = [
     CommonModule,
     BrowserModule,
     RouterModule.forRoot(routes, {
-      useHash: true
-    })
+      useHash: false,
+    }),
   ],
-  exports: [
-  ],
+  exports: [],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
