@@ -16,6 +16,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 
 import { HomeModule } from './home/home.module';
 import { LoginComponent } from './login/login.component';
+import { AuthService } from './auth/authservice';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { LoginComponent } from './login/login.component';
     OAuthModule.forRoot(),
     HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

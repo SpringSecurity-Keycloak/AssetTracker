@@ -4,6 +4,7 @@ import { Location, PopStateEvent } from '@angular/common';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { filter } from 'rxjs/operators';
 import { AuthCodeFlowConfig } from '../../auth/auth.config';
+import { AuthService } from 'src/app/auth/authservice';
 
 @Component({
   selector: 'app-navbar',
@@ -12,77 +13,43 @@ import { AuthCodeFlowConfig } from '../../auth/auth.config';
 })
 export class NavbarComponent implements OnInit {
   public isAuthenticated = false;
-  public isCollapsed = true;
-  private lastPoppedUrl: string;
-  private yScrollStack: number[] = [];
 
+  /**
+   * 
+   * @param location 
+   * @param router 
+   * @param authService 
+   */
   constructor(
     public location: Location,
     private router: Router,
-    private oauthService: OAuthService
-  ) {
-    
-  }
+    private authService: AuthService
+  ) {}
 
-  ngOnInit() {
-    this.oauthService.configure(AuthCodeFlowConfig);
-    this.isAuthenticated = this.oauthService.hasValidAccessToken();
-    this.router.events.subscribe((event) => {
-      this.isAuthenticated = this.oauthService.hasValidAccessToken();
-    });
-    /*
-    this.router.events.subscribe((event) => {
-      this.isCollapsed = true;
-      if (event instanceof NavigationStart) {
-        if (event.url != this.lastPoppedUrl)
-          this.yScrollStack.push(window.scrollY);
-      } else if (event instanceof NavigationEnd) {
-        if (event.url == this.lastPoppedUrl) {
-          this.lastPoppedUrl = undefined;
-          window.scrollTo(0, this.yScrollStack.pop());
-        } else window.scrollTo(0, 0);
-      }
-    });
-    this.location.subscribe((ev: PopStateEvent) => {
-      this.lastPoppedUrl = ev.url;
-    });
+  /**
+   * 
    */
-  }
-
-  isHome() {
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-
-    if (titlee === '#/home') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-    
-  isDocumentation() {
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-    if (titlee === '#/documentation') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  public login() {
-    console.log("In login()");
-    this.oauthService.loadDiscoveryDocumentAndLogin().then((result: boolean) => {
-      console.log("result is " + result);
-      this.isAuthenticated = result;
-      this.router.navigateByUrl("home");
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      this.isAuthenticated = this.authService.isAuthenticated();
     });
-    
-    // Optional
-    this.oauthService.setupAutomaticSilentRefresh();
   }
-    
+
+  /**
+   * 
+   */
+  public login() {
+    console.log('Navbar login()');
+    this.authService.login();
+  }
+
+  /**
+   * 
+   */
   public logout() {
-    this.oauthService.logOut();
-    this.isAuthenticated = this.oauthService.hasValidAccessToken();
+    console.log('Navbar logout()');
+    this.authService.logout();
+    this.isAuthenticated = this.authService.isAuthenticated();
     this.router.navigateByUrl('landing');
   }
 }
