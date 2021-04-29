@@ -24,15 +24,22 @@ export class NavbarComponent implements OnInit {
     public location: Location,
     private router: Router,
     private authService: AuthService
-  ) {}
+  ) { 
+    this.router.events.subscribe((event) => {
+      this.isAuthenticated = this.authService.isAuthenticated();
+    });
+    this.authService.authenticationEventObservable.subscribe((event) => {
+      this.isAuthenticated = event;
+      this.ngOnInit();
+    });
+  }
+  
 
   /**
    * 
    */
   ngOnInit() {
-    this.router.events.subscribe((event) => {
-      this.isAuthenticated = this.authService.isAuthenticated();
-    });
+    
   }
 
   /**

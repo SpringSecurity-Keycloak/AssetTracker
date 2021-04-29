@@ -8,7 +8,7 @@ export const AuthCodeFlowConfig: AuthConfig = {
   clientId: environment.authO.clientId,
   responseType: environment.authO.response_type,
   scope: environment.authO.scope,
-  showDebugInformation: true,
+  showDebugInformation: false,
   timeoutFactor: 0.01,
   postLogoutRedirectUri: environment.authO.postLogoutRedirectUri,
   logoutUrl: environment.authO.logoutUrl,

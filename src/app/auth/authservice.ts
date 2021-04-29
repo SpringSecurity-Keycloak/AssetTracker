@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { Subject } from 'rxjs';
 import { AuthCodeFlowConfig } from './auth.config';
 
 @Injectable()
 export class AuthService {
+  public authenticationEventObservable: Subject<boolean> = new Subject<boolean>();
   /**
    *
    * @param router
@@ -23,7 +25,11 @@ export class AuthService {
       .loadDiscoveryDocumentAndLogin()
       .then((result: boolean) => {
         console.log('result is ' + result);
+        this.authenticationEventObservable.next(result);
         this.router.navigateByUrl('home');
+      })
+      .catch((error) => {
+        this.logout();
       });
 
     // Optional
@@ -36,7 +42,7 @@ export class AuthService {
   public logout() {
     console.log('Auth Service logoff()');
     this.oauthService.logOut();
-    this.router.navigateByUrl('landing');
+    //this.router.navigateByUrl('landing');
   }
 
   /**
