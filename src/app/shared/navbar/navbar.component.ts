@@ -5,6 +5,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { filter } from 'rxjs/operators';
 import { AuthCodeFlowConfig } from '../../auth/auth.config';
 import { AuthService } from 'src/app/auth/authservice';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -32,10 +33,16 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  public authenticated(): Observable<boolean> {
+    return this.authService.authenticationEventObservable.asObservable();
+  }
   /**
    *
    */
-  ngOnInit() {}
+  ngOnInit() { 
+    this.authService.isAuthenticated();
+  }
+  
 
   /**
    *
