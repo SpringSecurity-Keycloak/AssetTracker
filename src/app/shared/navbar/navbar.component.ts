@@ -15,35 +15,30 @@ export class NavbarComponent implements OnInit {
   public isAuthenticated = false;
 
   /**
-   * 
-   * @param location 
-   * @param router 
-   * @param authService 
+   *
+   * @param location
+   * @param router
+   * @param authService
    */
   constructor(
     public location: Location,
     private router: Router,
     private authService: AuthService
-  ) { 
-    this.router.events.subscribe((event) => {
-      this.isAuthenticated = this.authService.isAuthenticated();
-    });
+  ) {
     this.authService.authenticationEventObservable.subscribe((event) => {
+      console.log('Nav Component recieved auth event ' + event);
       this.isAuthenticated = event;
       this.ngOnInit();
     });
   }
-  
 
   /**
-   * 
+   *
    */
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   /**
-   * 
+   *
    */
   public login() {
     console.log('Navbar login()');
@@ -51,7 +46,7 @@ export class NavbarComponent implements OnInit {
   }
 
   /**
-   * 
+   *
    */
   public logout() {
     console.log('Navbar logout()');

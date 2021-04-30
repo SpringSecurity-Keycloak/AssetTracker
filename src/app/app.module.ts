@@ -17,6 +17,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HomeModule } from './home/home.module';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './auth/authservice';
+import { AuthGuard } from './auth/auth.guard';
 
 
 @NgModule({
@@ -39,7 +40,7 @@ import { AuthService } from './auth/authservice';
     OAuthModule.forRoot(),
     HttpClientModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

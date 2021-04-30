@@ -9,22 +9,23 @@ import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    //canActivate: [AutoLoginGuard],
+    //canActivate: [AuthGuard],
   },
   {
     path: 'user-profile',
     component: ProfileComponent,
-    //canActivate: [AutoLoginGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'register',
     component: SignupComponent,
-    //canActivate: [AutoLoginGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'landing',
